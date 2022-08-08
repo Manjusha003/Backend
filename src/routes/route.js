@@ -59,7 +59,7 @@ router.get("/student-details/:name", function (req, res) {
     dynamic values.
     This value comes from the request url in the form of an 
     object where key is the variable defined in code 
-    and value is what is sent in the request
+    and value is what is sent in the requestgit
     */
 
     let requestParams = req.params;
