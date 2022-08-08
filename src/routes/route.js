@@ -41,6 +41,24 @@ router.get("/test-me", function (req, res) {
     let arr = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
     let ans = lodash.tail(arr);
     console.log(ans);
+
+    let arr1 = [90, 89, 65, 46, 90];
+    let arr2 = [76, 54, 34, 46, 77];
+    let arr3 = [66, 68, 43, 90, 65, 78];
+    let arr4 = [64, 72, 77, 98, 89];
+    let arr5 = [66, 89, 43, 34, 77];
+
+    let unionArr = lodash.union(arr1, arr2, arr3, arr4, arr5);
+    console.log(unionArr);
+
+    let array1 = [
+        ["horror", "The shining"],
+        ["name", "Manjusha"],
+        ["batch", "Plutonium"],
+        ["drama", "Titanic"],
+    ];
+    let obj = lodash.fromPairs(array1);
+    console.log(obj);
 });
 
 module.exports = router;
