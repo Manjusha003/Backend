@@ -1,4 +1,6 @@
 const express = require("express");
+const lodash = require("lodash");
+
 const abc = require("../introduction/intro");
 const logger = require("../logger/logger");
 const helper = require("../util/helper");
@@ -17,31 +19,28 @@ router.get("/test-me", function (req, res) {
     formatter.getUpperCase();
 
     res.send("My second ever api!");
-});
 
-router.get("/students", function (req, res) {
-    let students = ["Sabiha", "Neha", "Akash"];
-    res.send(students);
-});
+    let month = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
 
-router.get("/student-details/:name", function (req, res) {
-    /*
-    params is an attribute inside request that contains 
-    dynamic values.
-    This value comes from the request url in the form of an 
-    object where key is the variable defined in code 
-    and value is what is sent in the request
-    */
+    let result = lodash.chunk(month, 3);
+    console.log(result);
 
-    let requestParams = req.params;
-
-    // JSON strigify function helps to print an entire object
-    // We can use any ways to print an object in Javascript, JSON stringify is one of them
-    console.log("This is the request " + JSON.stringify(requestParams));
-    let studentName = requestParams.name;
-    console.log("Name of the student is ", studentName);
-
-    res.send("Dummy response");
+    let arr = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+    let ans = lodash.tail(arr);
+    console.log(ans);
 });
 
 module.exports = router;
