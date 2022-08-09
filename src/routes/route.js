@@ -10,81 +10,24 @@ router.get("/test-me", function (req, res) {
     res.send("My second ever api!");
 });
 
-router.get("/movies", function (req, res) {
-    const movies = [
-        "Rang de basanti",
-        "The shining",
-        "Lord if the rings",
-        "Batman begins",
-    ];
-    res.send(movies);
+router.get("/sol1", function (req, res) {
+    let arr = [1, 2, 3, 5, 6, 7];
+
+    let arrSum = arr.reduce((prev, curr) => prev + curr);
+    let lastDigit = arr.pop();
+    let totalSum = (lastDigit * (lastDigit + 1)) / 2;
+
+    let missingNumber = totalSum - arrSum;
+    res.send({ data: missingNumber });
 });
 
-router.get("/movies/:indexNumber", function (req, res) {
-    const movies = [
-        "Rang de basanti",
-        "The shining",
-        "Lord if the rings",
-        "Batman begins",
-    ];
-    let index = req.params.indexNumber;
-    if (index < 0 || index >= movies.length) {
-        return res.send("movie is not present in the given index");
-    }
-    let movieName = movies[index];
-    console.log(movieName);
-    res.send(movieName);
-});
+router.get("/sol2", function (req, res) {
+    let arr = [33, 34, 35, 37, 38];
+    let arrSum = arr.reduce((prev, curr) => prev + curr);
+    let totalSum = ((arr.length + 1) * (arr[0] + arr[arr.length - 1])) / 2;
 
-router.get("/films", function (req, res) {
-    const films = [
-        {
-            id: 1,
-            name: "The Shining",
-        },
-        {
-            id: 2,
-            name: "Incendies",
-        },
-        {
-            id: 3,
-            name: "Rang de Bsanti",
-        },
-        {
-            id: 4,
-            name: "Finding Nemo",
-        },
-    ];
-    res.send(films);
-});
-router.get("/films/:filmId", function (req, res) {
-    const films = [
-        {
-            id: 1,
-            name: "The Shining",
-        },
-        {
-            id: 2,
-            name: "Incendies",
-        },
-        {
-            id: 3,
-            name: "Rang de Bsanti",
-        },
-        {
-            id: 4,
-            name: "Finding Nemo",
-        },
-    ];
-
-    for (let i = 0; i < films.length; i++) {
-        let film = films[i];
-        let filmId = film.id;
-        if (film.id === filmId) {
-            return res.send(film);
-        }
-    }
-    res.send("This Film id doesn't exist in the array of films");
+    let missingNumber = totalSum - arrSum;
+    res.send({ data: missingNumber });
 });
 
 module.exports = router;
