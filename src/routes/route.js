@@ -1,76 +1,90 @@
 const express = require("express");
-const lodash = require("lodash");
+
 const abc = require("../introduction/intro");
 const router = express.Router();
 
 router.get("/test-me", function (req, res) {
     console.log("My batch is", abc.name);
     abc.printName();
-    let month = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
 
-    let result = lodash.chunk(month, 3);
-    console.log(result);
-
-    let arr = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
-    let ans = lodash.tail(arr);
-    console.log(ans);
-
-    let arr1 = [90, 89, 65, 46, 90];
-    let arr2 = [76, 54, 34, 46, 77];
-    let arr3 = [66, 68, 43, 90, 65, 78];
-    let arr4 = [64, 72, 77, 98, 89];
-    let arr5 = [66, 89, 43, 34, 77];
-
-    let unionArr = lodash.union(arr1, arr2, arr3, arr4, arr5);
-    console.log(unionArr);
-
-    let array1 = [
-        ["horror", "The shining"],
-        ["name", "Manjusha"],
-        ["batch", "Plutonium"],
-        ["drama", "Titanic"],
-    ];
-    let obj = lodash.fromPairs(array1);
-    console.log(obj);
     res.send("My second ever api!");
 });
 
-router.get("/students", function (req, res) {
-    let students = ["Sabiha", "Neha", "Akash"];
-    res.send(students);
+router.get("/movies", function (req, res) {
+    const movies = [
+        "Rang de basanti",
+        "The shining",
+        "Lord if the rings",
+        "Batman begins",
+    ];
+    res.send(movies);
 });
 
-router.get("/student-details/:name", function (req, res) {
-    /*
-    params is an attribute inside request that contains 
-    dynamic values.
-    This value comes from the request url in the form of an 
-    object where key is the variable defined in code 
-    and value is what is sent in the request
-    */
+router.get("/movies/:indexNumber", function (req, res) {
+    const movies = [
+        "Rang de basanti",
+        "The shining",
+        "Lord if the rings",
+        "Batman begins",
+    ];
+    let index = req.params.indexNumber;
+    if (index < 0 || index >= movies.length) {
+        return res.send("movie is not present in the given index");
+    }
+    let movieName = movies[index];
+    console.log(movieName);
+    res.send(movieName);
+});
 
-    let requestParams = req.params;
+router.get("/films", function (req, res) {
+    const films = [
+        {
+            id: 1,
+            name: "The Shining",
+        },
+        {
+            id: 2,
+            name: "Incendies",
+        },
+        {
+            id: 3,
+            name: "Rang de Bsanti",
+        },
+        {
+            id: 4,
+            name: "Finding Nemo",
+        },
+    ];
+    res.send(films);
+});
+router.get("/films/:filmId", function (req, res) {
+    const films = [
+        {
+            id: 1,
+            name: "The Shining",
+        },
+        {
+            id: 2,
+            name: "Incendies",
+        },
+        {
+            id: 3,
+            name: "Rang de Bsanti",
+        },
+        {
+            id: 4,
+            name: "Finding Nemo",
+        },
+    ];
 
-    // JSON strigify function helps to print an entire object
-    // We can use any ways to print an object in Javascript, JSON stringify is one of them
-    console.log("This is the request " + JSON.stringify(requestParams));
-    let studentName = requestParams.name;
-    console.log("Name of the student is ", studentName);
-
-    res.send("Dummy response");
+    for (let i = 0; i < films.length; i++) {
+        let film = films[i];
+        let filmId = film.id;
+        if (film.id === filmId) {
+            return res.send(film);
+        }
+    }
+    res.send("This Film id doesn't exist in the array of films");
 });
 
 module.exports = router;
