@@ -1,7 +1,9 @@
-const authenticate = function (req, req, next) {
+const jwt=require("jsonwebtoken")
+
+const authenticate =  function (req, res, next) {
 
     let token = req.headers["x-auth-token"];
-    if (!token) token = req.headers["x-auth-token"];
+   if (!token) token = req.headers["x-auth-token"];
 
 
     if (!token) return res.send({ status: false, msg: "token must be present" });
@@ -12,27 +14,25 @@ const authenticate = function (req, req, next) {
     if (!decodedToken)
         return res.send({ status: false, msg: "token is invalid" });
 
-    req.decodedToken = decodedToken;
+    req.loggedInUser = decodedToken.userId;
 
     next()
 }
 
 
-const authorise = async function (req, res, next) {
+const authorise =   function (req, res, next) {
     // comapre the logged in user's id and the id in request
-
+   
     let userToBeModified = req.params.userId
 
-    let userLoggedIn = decodedToken.userId
+   
 
-
-    if (userToBeModified != userLoggedIn)
+    if (userToBeModified !== req.loggedInUser)
         return res.send({ status: false, msg: 'User logged is not allowed to modify the requested users data' })
 
-    let user = await userModel.findById(req.params.userId)
-    if (!user) return res.send({ status: false, msg: 'No such user exists' })
 
     next()
 }
 
-module.exports = { authenticate, authorise }
+module.exports.authenticate=authenticate;
+ module.exports.authorise=authorise
